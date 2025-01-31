@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Book</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        a {
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Grade Book</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Course 1</th>
+                <th>Course 2</th>
+                <th>Course 3</th>
+                <th>Course 4</th>
+                <th>Avg. Number Grade</th>
+                <th>Avg. Letter Grade</th>
+            </tr>
+        </thead>
+        <tbody id="gradebook">
+            <!-- Rows will come here -->
+        </tbody>
+    </table>
+
+    <script>
+        const studentNames = ['Alice', 'Pedro', 'Jeff', 'Laura'];
+        const studentGrades = [
+            [89, 79, 94, 90],
+            [77, 81, 89, null],
+            [73, 71, null, 85],
+            [80, 91, 63, 78]
+        ];
+
+        const assignmentGrades = [
+            [30, 25, 29, 45, 48],
+            [27, 28, null, 40, 42],
+            [25, null, 28, 41, 44],
+            [29, 30, 27, 42, 46]
+        ];
+
+        function calculateAverage(grades) {
+            const validGrades = grades.filter(grade => grade !== null);
+            const total = validGrades.reduce((sum, grade) => sum + grade, 0);
+            return Math.round(total / validGrades.length);
+        }
+
+        function getLetterGrade(average) {
+            if (average >= 90) return 'A';
+            if (average >= 80) return 'B';
+            if (average >= 70) return 'C';
+            if (average >= 60) return 'D';
+            return 'F';
+        }
+
+        function populateTable() {
+            const tableBody = document.getElementById('gradebook');
+
+            for (let i = 0; i < studentNames.length; i++) {
+                const average = calculateAverage(studentGrades[i]);
+                const letterGrade = getLetterGrade(average);
+                const row = document.createElement('tr');
+
+                row.innerHTML = `
+                    <td><a href="javascript:void(0)" onclick="showDetails(${i})">${studentNames[i]}</a></td>
+                    <td>${studentGrades[i][0] ?? '-'}</td>
+                    <td>${studentGrades[i][1] ?? '-'}</td>
+                    <td>${studentGrades[i][2] ?? '-'}</td>
+                    <td>${studentGrades[i][3] ?? '-'}</td>
+                    <td>${average}</td>
+                    <td>${letterGrade}</td>
+                `;
+
+                tableBody.appendChild(row);
+            }
+        }
+
+        function showDetails(index) {
+            const assignments = assignmentGrades[index].slice(0, 3);
+            const quizzes = assignmentGrades[index].slice(3, 4);
+            const exams = assignmentGrades[index].slice(4);
+
+            const assignmentsAvg = calculateAverage(assignments);
+            const quizzesAvg = calculateAverage(quizzes);
+            const examsAvg = calculateAverage(exams);
+
+            const detailsPage = `
+                <h2>${studentNames[index]}'s Grades</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Assessment Type</th>
+                            <th>Grades</th>
+                            <th>Weighted Average</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Assignments</td>
+                            <td>${assignments.map(grade => grade ?? '-').join(', ')}</td>
+                            <td>${assignmentsAvg}</td>
+                        </tr>
+                        <tr>
+                            <td>Quizzes</td>
+                            <td>${quizzes.map(grade => grade ?? '-').join(', ')}</td>
+                            <td>${quizzesAvg}</td>
+                        </tr>
+                        <tr>
+                            <td>Exams</td>
+                            <td>${exams.map(grade => grade ?? '-').join(', ')}</td>
+                            <td>${examsAvg}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button onclick="window.location.reload()">Back to Gradebook</button>
+            `;
+
+            document.body.innerHTML = detailsPage;
+        }
+
+        populateTable();
+    </script>
+</body>
+</html>
