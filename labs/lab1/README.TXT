@@ -3,7 +3,9 @@
 
 * *Date Created*: 22-01-2025
 * *Last Modification Date*: 23-01-2025
-Timberlea Url: https://web.cs.dal.ca/~tanay/csci3172/labs/lab1/  
+Timberlea Url: https://web.cs.dal.ca/~tanay/csci3172/labs/lab1/ 
+GIT URL: https://git.cs.dal.ca/tanay/csci-3172.git
+ 
 
 ## Authors
 
