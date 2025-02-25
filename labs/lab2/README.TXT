@@ -19,3 +19,17 @@ If what is being submitted is an individual Lab or Assignment, you may simply in
 - CSS
 - JS
 
+
+Questions:
+
+a)
+
+const is a block scoped variables, means it can be used with in the block it was created such as a function, if statement etc.
+
+b) 
+
+They were introduced in ECMAScript 2015 (ES6), June 2015. [1].
+
+c)
+
+It will work because in my script there is no place were hoisting is happening.
