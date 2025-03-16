@@ -16,7 +16,7 @@ export default function Home() {
           <Button 
             variant="outline-primary" 
             size="lg"
-            href="/projects"
+            href="/Projects"
             aria-label="View my projects"
           >
             View My Work
@@ -24,7 +24,7 @@ export default function Home() {
           <Button
             variant="outline-secondary"
             size="lg"
-            href="/about"
+            href="/About"
             aria-label="Learn more about me"
           >
             My Journey
